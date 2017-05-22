@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -84,6 +85,15 @@ public class JobData {
         return jobs;
     }
 
+
+    public static ArrayList<HashMap<String,String>> findByValue(String searchTerm) {
+
+        //I dont know what to type here...
+
+        return jobs;
+    }
+
+
     /**
      * Read in data from a CSV file and store it in a list
      */
@@ -124,5 +134,4 @@ public class JobData {
             e.printStackTrace();
         }
     }
-
 }
