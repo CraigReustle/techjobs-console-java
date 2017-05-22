@@ -88,12 +88,21 @@ public class JobData {
 
     public static ArrayList<HashMap<String,String>> findByValue(String searchTerm) {
 
-        //I dont know what to type here...
+        loadData();
 
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for(HashMap<String, String> job : allJobs) {
+            for (Map.Entry<String, String> row : job.entrySet()) {
+                String rowValue = row.getValue();
+
+                if (rowValue.contains(searchTerm)) {
+                    jobs.add(job);
+                }
+            }
+        }
         return jobs;
     }
-
-
     /**
      * Read in data from a CSV file and store it in a list
      */
