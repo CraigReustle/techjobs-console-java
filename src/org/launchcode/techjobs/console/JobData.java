@@ -77,7 +77,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (containsIgnoreCase(aValue, value)) {
                 jobs.add(row);
             }
         }
@@ -85,22 +85,39 @@ public class JobData {
         return jobs;
     }
 
+    public static boolean containsIgnoreCase(String str, String searchStr)     {
+        if(str == null || searchStr == null) return false;
+
+        final int length = searchStr.length();
+        if (length == 0)
+            return true;
+
+        for (int i = str.length() - length; i >= 0; i--) {
+            if (str.regionMatches(true, i, searchStr, 0, length))
+                return true;
+        }
+        return false;
+    }
 
     public static ArrayList<HashMap<String,String>> findByValue(String searchTerm) {
 
+        // load data, if not already loaded
         loadData();
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for(HashMap<String, String> job : allJobs) {
-            for (Map.Entry<String, String> row : job.entrySet()) {
-                String rowValue = row.getValue();
-
-                if (rowValue.contains(searchTerm)) {
-                    jobs.add(job);
+        for (HashMap<String, String> row : allJobs) {
+            for (Map.Entry<String, String> entry : row.entrySet()){
+                String aValue = entry.getValue();
+                if(containsIgnoreCase(aValue, searchTerm)){
+                    jobs.add(row);
                 }
             }
         }
+        if(jobs.size()==0){
+            System.out.println("No results.");
+        }
+
         return jobs;
     }
     /**
